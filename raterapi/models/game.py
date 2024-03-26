@@ -11,3 +11,19 @@ class Game(models.Model):
     playtime = models.TimeField()
     age = models.IntegerField(max_length=2)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='games_created')
+
+    @property
+    def average_rating(self):
+
+        ratings = self.ratings.all()
+
+        total_ratings = 0
+        count = len(ratings)
+
+        for rating in ratings:
+            total_ratings += rating.rating
+
+        average = total_ratings / count
+
+        return average
+            
