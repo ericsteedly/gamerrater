@@ -11,6 +11,11 @@ class Game(models.Model):
     playtime = models.TimeField()
     age = models.IntegerField(max_length=2)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='games_created')
+    categories = models.ManyToManyField(
+        "Category",
+        through="GameCategory",
+        related_name="games"
+    )
 
     @property
     def average_rating(self):
